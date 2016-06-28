@@ -1,0 +1,26 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <h3>Call Server method from the Client:</h3>
+        <input type="text" data-bind="textInput: othersMessage"/>
+        <button data-bind="click: sendMessageToOthers">Send Message to "Others"</button>
+        <br/>
+        <input type="text" data-bind="textInput: allMessage" />
+        <button data-bind="click: sendMessageToAll">Send Message to "All"</button>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <h3>SignalR Output:</h3>
+        @*<button data-bind="click: generateNewMessage">Get Message From Server</button>*@
+        <ul data-bind="foreach: signalRData">
+            <li>
+                <span data-bind="text: message"></span>
+            </li>
+        </ul>
+    </div>
+</div>
