@@ -7,8 +7,11 @@ var HomeViewModel = function() {
 
     self.allMessage = ko.observable("");
     self.othersMessage = ko.observable("");
-
     self.signalRData = ko.observableArray([]);
+
+    self.groupName = ko.observable("");
+    self.groupMessage = ko.observable("");
+    self.groupList = ko.observableArray([]);
 
     // this is our hub to communicate with SignalR
     self.notificationHub = $.connection.notificationHub;
@@ -26,6 +29,34 @@ var HomeViewModel = function() {
     // this method handles messages from the server
     self.notificationHub.client.sendMessage = function(message) {
         self.signalRData.push({ message: message });
+    };
+
+
+    self.addToGroup = function() {
+        self.notificationHub.server.addToGroup(self.groupName())
+            .done(function() {
+                self.groupList.push({ group: self.groupName() });
+                self.groupName("");
+            })
+            .fail(function() {
+                self.signalRData.push({ message: "Error adding to group: " + self.groupName() });
+            });
+    }
+
+    self.removeFromGroup = function () {
+        self.notificationHub.server.removeFromGroup(self.groupName())
+            .done(function () {
+                self.groupList(self.groupList.remove({ group: self.groupName() }));
+                self.groupName("");
+            })
+            .fail(function () {
+                self.signalRData.push({ message: "Error removing from group: " + self.groupName() });
+            });
+    }
+
+    self.sendMessageToGroup = function () {
+        self.notificationHub.server.clientMessageToGroup(self.groupName(), self.groupMessage());
+        self.othersMessage("");
     };
 
     // this works, just don't need the functionality right now

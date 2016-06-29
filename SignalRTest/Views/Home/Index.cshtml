@@ -2,13 +2,44 @@
     ViewBag.Title = "Home Page";
 }
 
+
+<div class="row">
+    <div class="col-md-12">
+        <h3>Manage Groups:</h3>
+        <label for="txtAddGroup">Add me to Group:</label>
+        <input id="txtAddGroup" type="text" data-bind="textInput: groupName"/>
+        <button data-bind="click: addToGroup">Add</button>
+        <br/>
+        <label for="txtRemoveGroup">Remove me from Group:</label>
+        <input id="txtRemoveGroup" type="text" data-bind="textInput: groupName"/>
+        <button data-bind="click: removeFromGroup">Remove</button>
+        <br/>
+        <label for="txtSendGroupMessage">Send Message:</label>
+        <input id="txtSendGroupMessage" type="text" data-bind="textInput: groupMessage"/>
+        <label for="txtToGroup">to Group:</label>
+        <input id="txtToGroup" type="text" data-bind="textInput: groupName"/>
+        <button data-bind="click: sendMessageToGroup">Send</button>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <h3>Group List:</h3>
+        <ul data-bind="foreach: groupList">
+            <li>
+                <span data-bind="text: group"></span>
+            </li>
+        </ul>
+    </div>
+</div>
+
 <div class="row">
     <div class="col-md-12">
         <h3>Call Server method from the Client:</h3>
         <input type="text" data-bind="textInput: othersMessage"/>
         <button data-bind="click: sendMessageToOthers">Send Message to "Others"</button>
         <br/>
-        <input type="text" data-bind="textInput: allMessage" />
+        <input type="text" data-bind="textInput: allMessage"/>
         <button data-bind="click: sendMessageToAll">Send Message to "All"</button>
     </div>
 </div>

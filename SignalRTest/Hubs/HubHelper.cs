@@ -16,16 +16,15 @@ namespace SignalRTest.Hubs
         private HubHelper()
         {
             timer = new Timer();
-            timer.Interval = 10000;
+            timer.Interval = 60000;
             timer.Elapsed += TimerOnElapsed;
             timer.Start();
         }
 
-        private int _timeInSeconds = 0;
+        private int _timeInMinutes = 0;
         private void TimerOnElapsed(object sender, ElapsedEventArgs elapsedEventArgs)
         {
-            _timeInSeconds += 10;
-            ServerMessageToAll("Time in app: " + _timeInSeconds + " seconds.");
+            ServerMessageToAll("Time in app: " + ++_timeInMinutes + " min");
         }
 
         public static HubHelper GetInstance()
